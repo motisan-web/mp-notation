@@ -67,7 +67,7 @@ item の親が list 以外の要素（inner など）のとき、`list > item` �
 | `_btn` | ボタン（操作）またはボタンの見た目のリンク | `button` / `a` |
 | `_link` | リンク | `a` |
 | `_logo` | ロゴ | `a` / `img` |
-| `_icon` | アイコン（装飾なら `aria-hidden="true"`） | `img` / `span` / `svg` |
+| `_icon` | アイコン。装飾なら `aria-hidden="true"`、Q / A のように意味を区別するラベルなら読み上げさせる（→ [html-attributes.md](html-attributes.md)「装飾の画像・アイコン」） | `img` / `span` / `svg` |
 
 ## テキスト
 
