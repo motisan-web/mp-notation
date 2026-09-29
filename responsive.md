@@ -32,8 +32,10 @@
 | `pc` | 1080px 以上 |
 | `notPc` | 1079px 以下（SP + TAB） |
 | `notTab` | 767px 以下、または 1080px 以上（SP + PC） |
+| `onlySp` | 767px 以下（SP だけ） |
+| `onlyTab` | 768px〜1079px（TAB だけ） |
 
-`notSp` / `onlySp` / `onlyTab` / `onlyPc` もキーとして存在するが使わない。`notSp` は `tab`、`onlyPc` は `pc` と同じ範囲で、同じものを2通りに書けてしまうため。`only` を含む書き方は廃止している。
+`notSp` と `onlyPc` もキーとして存在するが使わない。`notSp` は `tab`、`onlyPc` は `pc` と同じ範囲で、同じものを2通りに書けてしまうため。（クラス名の `__onlySp` のような `only` の書き方は廃止しているが、mq のキーの `onlySp` / `onlyTab` は代わりがないので使う）
 
 mixin の定義は [scss.md](scss.md) が前提とする `global/_breakpoint.scss` にある。
 
@@ -52,7 +54,7 @@ mixin の定義は [scss.md](scss.md) が前提とする `global/_breakpoint.scs
 | `un_hide__123` | すべて |
 
 - **数字の表記だけを使う。** 単語の表記（`__sp` / `__tab` / `__pc` / `__notPc` / `__notTab` / `__notSp`）は使わない。単語の表記は、ドキュメントと実装で意味が食い違っていた（`__tab` が「TAB だけ」と「TAB 以上」の両方の意味で使われていた）ため
-- 数字は「非表示にするデバイスの集合」を表す。数字は小さい順に書く
+- 数字は「非表示にするデバイスの集合」を表す。数字は小さい順に書く（`__31` ではなく `__13`）。逆順のクラスは定義しないので効かない。検品の記法チェックで検出する
 - 単体で使い、`un_hide`（見えないが読み上げる）とは併用しない。名前は似ているが働きが違う（次の版で名前を分ける予定 → [open-questions.md](open-questions.md)）
 
 ## 流体値（vw と clamp）
@@ -63,7 +65,7 @@ mixin の定義は [scss.md](scss.md) が前提とする `global/_breakpoint.scs
 
 ```scss
 .bl_campaign_ttl {
-    font-size: clamp(18px, calc(4.8vw + 0px), 24px);
+    font-size: clamp(18px, 4.8vw, 24px);
 }
 ```
 
