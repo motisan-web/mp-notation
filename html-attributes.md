@@ -55,12 +55,22 @@ php -r "list(\$w,\$h)=getimagesize('path/to/image.jpg'); echo \$w.'x'.\$h;"
 
 ### 装飾の画像・アイコン
 
-- 装飾の画像には `alt=""` と `aria-hidden="true"` の両方を付ける（装飾だと伝え、アクセシビリティツリーから外し、コードを読む人にも意図を示す）
-- img 以外のアイコン（SVG・テキストの「Q」など）にも `aria-hidden="true"` を付ける
+**装飾かどうかは、取り除いても意味が伝わるかで判定する。**
+
+- 取り除いても意味が伝わる（飾りの線・背景・見出しの横の飾りのアイコンなど）→ 装飾
+  - 画像には `alt=""` と `aria-hidden="true"` の両方を付ける（装飾だと伝え、アクセシビリティツリーから外し、コードを読む人にも意図を示す）
+  - img 以外のアイコン（SVG など）にも `aria-hidden="true"` を付ける
+- 取り除くと意味が変わる（FAQ の Q / A、手順の番号など、意味を区別するラベル）→ 装飾ではない
+  - 画像なら `alt` にそのラベルを書く。テキストなら `aria-hidden` を付けない
+  - FAQ の Q / A を隠すと、読み上げで質問と回答の区別が消える
 
 ```html
+<!-- 装飾 -->
 <img src="deco.png" alt="" aria-hidden="true" width="" height="">
-<span class="bl_faq_item_q_icon" aria-hidden="true">Q</span>
+
+<!-- 意味を区別するラベル（装飾ではない） -->
+<img class="bl_faq_item_q_icon" src="q-icon.svg" alt="Q" width="12" height="19">
+<span class="bl_faq_item_a_icon">A</span>
 ```
 
 ## `un_hide`（見えないが読み上げるテキスト）

@@ -19,7 +19,7 @@
 - インデントをスペース4つに統一
 - モジュールの `section` に `id` を書かず、ページに組み込むときに付ける
 - `js_` プレフィックス（JS のフック）。JS が付け外しするクラスの使い分け（状態 = モディファイア、動き = `an_`、スタイルのない内部状態 = `js_` のモディファイア）。data 属性の名前はハイフン区切り
-- アクセシビリティの最低限: 見出しは h2 基準、a と button の使い分け、開閉 UI は details / summary が基本、`rel="noopener"`、装飾アイコンの `aria-hidden`、nav の `aria-label`、`:focus-visible`、`prefers-reduced-motion`
+- アクセシビリティの最低限: 見出しは h2 基準、a と button の使い分け、開閉 UI は details / summary が基本、`rel="noopener"`、装飾アイコンの `aria-hidden`（装飾かどうかは取り除いても意味が伝わるかで判定し、FAQ の Q / A のような意味を区別するラベルは装飾にしない。検品で Q / A まで隠していた例が見つかったため）、nav の `aria-label`、`:focus-visible`、`prefers-reduced-motion`
 - モジュールの目印 `data-mp`（ルート要素に slug）
 - ルートクラスの付け替えの方法
 - vw は clamp の中でだけ使う。文字サイズと `position` で置く装飾画像は画面基準
