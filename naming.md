@@ -1,0 +1,228 @@
+# クラス名の組み立て方
+
+個々のパターン名（inner / body / group / list / ttl など）の意味は [patterns.md](patterns.md)、省略語は [abbreviations.md](abbreviations.md) を参照。
+
+## 基本の形
+
+```
+プレフィックス_親要素_子要素_孫要素…__モディファイア
+```
+
+| 記号 | 意味 |
+|---|---|
+| `_`（アンダースコア1個） | 階層の区切り |
+| `__`（アンダースコア2個） | モディファイア |
+| キャメルケース | 1つの要素の名前を、複数の語で作る（例: `txtGroup`、`subTtl`、`serviceCard`） |
+
+- モディファイアは元のクラスと併用する: `class="el_btn el_btn__primary"`
+- クラス名にハイフン（`-`）は使わない。data 属性の名前は HTML の慣習どおりハイフン区切りにする（→ [html-attributes.md](html-attributes.md)）
+
+### キャメルケースと `_` の使い分け
+
+- `_` は「親子の階層」を表す: `bl_card_header_ttl` = card の中の header の中の ttl
+- キャメルケースは「1つの要素の名前」を表す: `bl_card_txtGroup` = card の中の、txtGroup という1つの要素
+
+大文字・小文字もこれで決まる。`txtGroup` は1つの要素なので G が大文字、`txt_group` は txt の子の group なので g が小文字。
+
+## プレフィックス
+
+| プレフィックス | 用途 | 判断基準 |
+|---|---|---|
+| `ly_` | レイアウト | ページの骨格。複数のブロックを包み、配置だけを担当する |
+| `bl_` | ブロックモジュール | 機能としてまとまった、独立したかたまり |
+| `el_` | エレメントモジュール | サイト全体で使い回す最小の部品 |
+| `un_` | ユーティリティ | 単一のスタイル調整・補助 |
+| `an_` | アニメーション | 動きの演出。JS で付け外しする |
+| `js_` | JS のフック | JS がつかむための目印。スタイルは当てない（→ [html-attributes.md](html-attributes.md)「JS との連携」） |
+
+### `el_` と `bl_` の使い分け
+
+`el_` は、サイト全体で同じスタイルが繰り返し使われることが**確定している**部品だけに使う。それ以外はすべて `bl_`。
+
+エージェントは原則 `bl_` で書く。スクリーンショットから「このスタイルがほかと同一か」を判定しきれないため、`el_` への昇格は人間が判断する。
+
+例: `el_btn` = サイト全体で一定のスタイルのボタン / `bl_buyBtn` = 購入ボタン専用
+
+### クラス名は責任範囲を示す
+
+```html
+<header class="ly_header bl_header">
+```
+
+- `ly_header`: 幅・上下の余白など、ページ構造を担当
+- `bl_header`: 背景色などの装飾を担当
+
+## 階層チェーンの継承
+
+子要素のクラス名に、親のクラス名を引き継ぐかどうかのルール。
+
+**原則: 引き継ぐ。** 引き継がないのは次の2種類だけ。
+
+| 種類 | 対象 | 理由 |
+|---|---|---|
+| レイアウト枠 | `_inner` / `_body` / `_wrap` / `_〇〇Wrap` | 配置だけを担う枠で、中身の意味を変えないため |
+| 子の形が決まっている親 | `_list`（子は `_item`）、`_〇〇List`（子は `_〇〇`） | 子が list の構成員であることは名前から自明なため。item の下には画像・タイトル・リンクなどが続くので、引き継ぐと名前が長くなりすぎる |
+
+```html
+<section class="bl_faq">
+    <div class="bl_faq_inner">                        ← ルートを引き継ぐ
+        <h2 class="bl_faq_ttl">                        ← inner は引き継がない
+            よくある質問
+        </h2>
+        <div class="bl_faq_list">
+            <div class="bl_faq_item">                  ← list は引き継がない
+                <div class="bl_faq_item_q">            ← item は引き継ぐ
+                    <p class="bl_faq_item_q_txt">      ← q は引き継ぐ
+                        質問が入ります。
+                    </p>
+                </div>
+                <div class="bl_faq_item_a">
+                    <div class="bl_faq_item_a_txtGroup">
+                        <p class="bl_faq_item_a_txtGroup_txt">   ← txtGroup は引き継ぐ
+                            回答が入ります。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+```
+
+- 表にない中間要素（`_q` / `_a` / `_btm` / `_header` / `_btn` / `_link` など）は、すべて引き継ぐ
+- item の中にさらに list がある場合も同じルールを当てはめる: `bl_x_item_list > bl_x_item_item`（item が重なってよい。階層によって命名を変えずに済むため）
+- 名前が長くなることは、長さを理由に引き継がない枠へ逃がす理由にならない。長さはスコープを正しく示すために必要なもの
+
+### グループの中の要素は、グループを引き継ぐ
+
+```html
+<div class="bl_solution">
+    <p class="bl_solution_txt">…</p>                  ← bl_solution の直接の子
+    <div class="bl_solution_txtGroup">
+        <p class="bl_solution_txtGroup_txt">…</p>     ← txtGroup の子
+    </div>
+</div>
+```
+
+`bl_solution_txtGroup` の中で `bl_solution_txt` は使わない。
+
+## 親専用の部品と、独立した部品
+
+| 書き方 | 意味 | SCSS |
+|---|---|---|
+| `bl_service_card` | `bl_service` の中でだけ使う部品。子は `bl_service_card_ttl` と普通に引き継ぐ | 親のファイルに同居させる |
+| `bl_serviceCard` | 独立した部品（新しいルート）。ほかの場所でも使える | 別ファイルに分けて管理できる |
+
+```html
+<!-- 親専用のカードを並べる -->
+<ul class="bl_service_cardList">
+    <li class="bl_service_card">
+        <h3 class="bl_service_card_ttl">
+            見出し
+        </h3>
+    </li>
+</ul>
+```
+
+どちらにするかは、デザイン全体を見て判断する。「ほかで使われていない」「リッチな変更が入りそう」なら親専用にする。汎用の部品として切り出すケースはむしろ少ない。
+
+## 同じ名前の要素が並ぶとき
+
+- 同じ階層に、スタイルの違う同名の要素が並ぶ → 連番: `_txt` / `_txt2` / `_txt3`、`_group` / `_group2`
+- 区別のための連番は2から始める（1つ目は番号なし）
+- 内容としての番号（ステップ1、ポイント01 など）は1から始め、英字の後に続ける: `bl_step_item1` / `bl_point_num01`（`bl_1step_item` ✕）
+- 固有名詞に番号が含まれる場合（商品名「No.01」など）はその番号を使う
+- ルートの連番命名は禁止: `bl_card2` / `bl_card3` ✕ → `bl_postCard` / `bl_newsCard` のように中身で名前を付ける
+
+## テキストの一部だけスタイルが違うとき（`_lv`）
+
+テキスト要素の中で、一部分だけスタイルが違う場合に使う。
+
+- その部分だけを `span` で囲み、`_lv2` / `_lv3` … を付ける
+- lv1 は親のスタイル。基本スタイルの部分は囲まない
+- 番号はスタイルの ID で、出現順ではない。同じスタイルなら何度出てきても同じ番号、別の要素に出てきても同じ番号
+- `_txt` に限らず、文字要素全般（`_ttl` / `_subTtl` / `_price` など）に使える
+- 値の部品（数値と単位、価格と税込表記）も `_lv` で書く
+
+```html
+<p class="bl_campaign_txt">
+    今なら<span class="bl_campaign_txt_lv2">50%OFF</span>でご購入いただけます。
+</p>
+<p class="bl_product_price">
+    8,000<span class="bl_product_price_lv2">円（税込）</span>
+</p>
+```
+
+- `span` の中に `span` を入れない。装飾が重なる場合は、入れ子にせず組み合わせを別の番号にする（例: 下線 = lv2、下線＋太字 = lv3）
+- クラスのない `span` を置いて、親クラスの子孫セレクタ（`.bl_x_txt span`）でスタイルを当てる書き方はしない（HTML から SCSS を逆引きできないため）
+- `_txt2`（同じ階層に並ぶ別のテキスト）と `_txt_lv2`（テキストの中の一部）は別物で、名前が衝突しない
+- 文中の lv の span には `display` の指定が必要（→ [scss.md](scss.md)「span の display」）
+
+## 命名の優先順位
+
+1. **構造的な役割**（最優先）: card / ttl / group など、要素の構造パターン
+2. **内容の種類**: post / product / news など
+3. **機能・目的**（補助）: solution / result など
+
+内容 + パターンはキャメルケースでつなぐ: `bl_postCard` / `bl_newsCard` / `bl_productCard`
+
+## モディファイア
+
+用途は3種類。
+
+1. **状態**: `__active` / `__disabled` / `__open` / `__current` など
+2. **逆方向のバリアント**: ダーク / ライト、反転パターンなど
+3. **別パターンの見た目**: `el_btn__primary` / `el_btn__secondary`
+
+複数付けるときは、重要度の高いものを先に書く: `class="el_btn el_btn__lg el_btn__primary"`
+
+JS が状態を付け外しする場合の使い分けは [html-attributes.md](html-attributes.md)「JS との連携」。
+
+## タイトルの命名
+
+| 場面 | 命名 |
+|---|---|
+| 繰り返し使う汎用のタイトル | `el_ttl` |
+| 突然登場する、複雑な構成のタイトル | `bl_ttl` |
+| 親モジュールの中のタイトル | `bl_card_header_ttl` など |
+
+同名の要素は、親のコンテキストで区別する: `bl_section_header_ttl` / `bl_card_header_ttl`（`bl_ttl` だけではどこのタイトルか分からない）
+
+## ルートクラスの付け替え
+
+既存のモジュールを土台に改変するとき、ルートクラスの付け替えは一括置換でできる。
+
+```
+bl_faq_ → bl_qa_   （クラス名の先頭が bl_faq_ のものをすべて置換）
+bl_faq  → bl_qa    （ルートクラス自身）
+```
+
+HTML と SCSS の両方で同じ置換をする。階層チェーンがすべてルートから始まるので、置換漏れが起きない。
+
+## よくある誤り
+
+### 深い階層
+
+深い階層は、必ずしも誤りではない。そのスコープでしか使わない専用のスタイルなら、深い命名が正しい。整理しようとしてほかのクラスと衝突するほうが問題になる。
+
+### `_txt` をコンテナにする
+
+`_txt` は単一のテキスト要素を指す。複数の要素を包むコンテナには使わない。
+
+```html
+<!-- ✕ -->
+<div class="bl_solution_txt">
+    <p>…</p>
+    <p>…</p>
+</div>
+
+<!-- ○ -->
+<div class="bl_solution_txtGroup">
+    <p class="bl_solution_txtGroup_txt">…</p>
+    <p class="bl_solution_txtGroup_txt">…</p>
+</div>
+```
+
+### プレフィックスの選択
+
+`bl_btn` のように見える命名も、特定用途のボタン（例: `bl_buyBtn`）なら正しい。
