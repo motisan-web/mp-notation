@@ -40,12 +40,14 @@
 | text | `txt` |
 | description | `desc` |
 | subtitle | `subTtl` |
-| heading | `head` |
 | paragraph | `para` |
 | caption | `cap` |
 | message | `msg` |
 | error | `err` |
-| label / summary / excerpt / group | そのまま |
+| label / summary / excerpt / group / note / copyright | そのまま |
+
+- heading（見出しのまとまり）は `head` にせず `header` を使う
+- `copy` は単体で使わない（コピーライトは `copyright`。キャッチコピーと紛らわしいため）
 
 ## フォーム
 
@@ -56,7 +58,7 @@ form / input / textarea / select / option / checkbox / radio / field / group / s
 | 元の語 | MP記法 |
 |---|---|
 | image | `img` |
-| picture | `pic` |
+| photo（写真） | `pic` |
 | thumbnail | `thum` |
 | background | `bg` |
 | icon / avatar / gallery / video / audio / media | そのまま |
