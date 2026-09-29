@@ -2,9 +2,9 @@
 
 ## 省略の方針
 
-- 省略するなら3〜4文字を目安にする（例: `thum` / `btm` / `desc`）
+- 省略するなら3〜4文字を目安にする（例: `thum` / `btm` / `info`）
 - 省略によって直感的に読めなくなるなら、フルスペルを使う
-- 1〜2文字の省略はしない（何の語か判別できなくなるため）
+- 表にない1〜2文字の省略はしない（何の語か判別できなくなるため）。表にある `kv` / `bg` / `sm` などは使える
 - 表にない語は、フルスペルをキャメルケースで使う。新しく省略したい語が出てきたら、この表に追加してから使う
 
 ## レイアウト
@@ -38,14 +38,15 @@
 |---|---|
 | title | `ttl` |
 | text | `txt` |
-| description | `desc` |
 | subtitle | `subTtl` |
 | paragraph | `para` |
 | caption | `cap` |
+| information | `info` |
 | message | `msg` |
 | error | `err` |
 | label / summary / excerpt / group / note / copyright | そのまま |
 
+- description（説明文）は省略形を作らず `txt` を使う（説明文と本文の使い分けで判断が割れるため）
 - heading（見出しのまとまり）は `head` にせず `header` を使う
 - `copy` は単体で使わない（コピーライトは `copyright`。キャッチコピーと紛らわしいため）
 
@@ -91,9 +92,3 @@ active / inactive / disabled / selected / checked / current / hover / focus / lo
 - **見た目に依存した名前**: `red` / `big` などをベースクラスに使わない（モディファイアとしてはよい）
 - **過度な略語**: 直感的に読めなくなるほどの省略
 
----
-
-## レビュー待ち
-
-- `background` → `bg` は、登録済みモジュールの `_bgImg` や画像のファイル名（`xxx-bg.png`）で使われているため追加した
-- 「表にない語はフルスペルで使う」「1〜2文字の省略はしない」は、省略の方針を判定できる形にするために足した

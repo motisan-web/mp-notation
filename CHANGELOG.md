@@ -24,6 +24,7 @@
 - ルートクラスの付け替えの方法
 - vw は clamp の中でだけ使う。文字サイズと `position` で置く装飾画像は画面基準
 - 表示切り替えクラスは数字の表記だけを使う（単語の表記はドキュメントと実装で意味が食い違っていたため）
+- 説明系の語（`_cap` / `_note` / `_excerpt` / `_summary` / `_msg` / `_txt`）の判定。`desc` は使わず `txt` に寄せる。省略語に `info` と `bg` を追加し、表にない1〜2文字の省略を禁止
 - 検品の基準（[checklist.md](checklist.md)）
 - パターン名の辞書（[patterns.md](patterns.md)）。`_head` は使わず `_header` に統一、コピーライトは `_copyright`（`_copy` はキャッチコピーと紛らわしいため使わない）、`_pic` は写真の意味
 
