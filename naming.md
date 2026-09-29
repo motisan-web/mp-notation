@@ -162,6 +162,7 @@
 ```
 
 - `span` の中に `span` を入れない。装飾が重なる場合は、入れ子にせず組み合わせを別の番号にする（例: 下線 = lv2、下線＋太字 = lv3）
+- `_lv` を持つテキストの親は、文でなくても `p` にする（短いテキストは本来 span だが、span の中に span を入れないため。→ [html-attributes.md](html-attributes.md)「短いテキスト」）。div にしない
 - クラスのない `span` を置いて、親クラスの子孫セレクタ（`.bl_x_txt span`）でスタイルを当てる書き方はしない（HTML から SCSS を逆引きできないため）
 - `_txt2`（同じ階層に並ぶ別のテキスト）と `_txt_lv2`（テキストの中の一部）は別物で、名前が衝突しない
 - 文中の lv の span には `display` の指定が必要（→ [scss.md](scss.md)「span の display」）
