@@ -54,8 +54,8 @@
 
 | リスク | 特徴 |
 |---|---|
-| high | `position: absolute`、`box-shadow`、`::before` / `::after` による装飾、`transform`、負の margin、画像とテキストの重なり |
-| mid | `background-image`、`z-index`、`clip-path` / `filter`、`object-fit`、`animation` |
+| high | `position: absolute`、`box-shadow`、`::before` / `::after` による装飾、負の margin、画像とテキストの重なり |
+| mid | `transform`、`background-image`、`z-index`、`clip-path` / `filter`、`object-fit`、`animation` |
 | low | 上のどれもない |
 
 判定の結果は、理由（どの特徴がどこにあるか）と一緒に表示する。この分類は、検品で見つかった不良のパターンをもとに見直す。
