@@ -4,6 +4,8 @@ HTML + SCSS のコーディング記法。クラスの付け方、HTML の構造
 
 - 読み手: コーディングするエージェント（Claude 等）と人間
 - バージョン: git のタグで管理する（このファイルを読んでいるタグがそのバージョン）。変更点は [CHANGELOG.md](CHANGELOG.md)
+- Web で読む: https://motisan-web.github.io/mp-notation/ （タグごとの URL。例: `/mp-notation/v2.1/`）
+- ライセンス: ドキュメントは CC BY 4.0、コード（samples/・global/・scripts/）は MIT（[LICENSE](LICENSE)）
 
 ## 作業ごとに読むファイル
 
@@ -48,3 +50,5 @@ HTML + SCSS のコーディング記法。クラスの付け方、HTML の構造
 | [module-format.md](module-format.md) | モジュールとして切り出すときの形式 |
 | [checklist.md](checklist.md) | 検品の基準 |
 | [open-questions.md](open-questions.md) | 未決の論点と次の版の予定 |
+| [samples/](samples/README.md) | 記法で書いたモジュールの例（公開用のデザイン） |
+| `global/` | samples/ の SCSS が読む mixin・ブレークポイント（[scss.md](scss.md) の `global/` のうち、モジュールが使う部分） |

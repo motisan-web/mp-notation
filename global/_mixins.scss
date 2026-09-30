@@ -1,0 +1,171 @@
+// samples/ のモジュールが `@use "../../global/" as *;` で読む mixin 集（Module Palette の global/ と同じもの）
+// リセット・ベーススタイルは案件側にある前提なので含めない（scss.md「前提とするベーススタイル」）
+
+//flexのやつ（引数なし呼び出しが前提。中央揃えがデフォルト）
+@mixin flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// 縦方向の中央揃え（縦積み）
+@mixin flex-column {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+@mixin flex-column-start {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+}
+
+// 横並び space-between
+@mixin flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+// 横並び space-around
+@mixin flex-around {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+// 横並び 左揃え
+@mixin flex-start {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+// 横並び 右揃え
+@mixin flex-end {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+//丸め処理はしない
+@mixin inner($container-width: 375px, $margin: 16px) {
+    width: percentage(($container-width - $margin * 2) / $container-width);
+    margin: 0 auto;
+}
+
+//widthだけ
+@mixin inner-width($container-width: 375px, $margin: 16px) {
+    width: percentage(($container-width - $margin * 2) / $container-width);
+}
+
+@mixin inner-max($container-width: 375px, $margin: 16px, $container-max-width: 1100px) {
+    @if unitless($container-max-width) and type-of($container-max-width) == number {
+        $container-max-width: $container-max-width + px;
+    }
+    @if $container-width == null or $margin == null or $margin == 0 {
+        width: 100%;
+    } @else {
+        width: percentage(($container-width - $margin * 2) / $container-width);
+    }
+    max-width: $container-max-width;
+    margin: 0 auto;
+}
+
+//percentのpaddingを付けたいとき
+@mixin padding($container-width: 375px, $padding: 16px) {
+    padding-left: percentage(1 - (($container-width - $padding) / $container-width));
+    padding-right: percentage(1 - (($container-width - $padding) / $container-width));
+}
+
+@mixin padding-left($container-width: 375px, $padding: 16px) {
+    padding-left: percentage(1 - (($container-width - $padding) / $container-width));
+}
+
+@mixin padding-right($container-width: 375px, $padding: 16px) {
+    padding-right: percentage(1 - (($container-width - $padding) / $container-width));
+}
+
+//percentのmarginを付けたいとき
+@mixin margin($container-width: 375px, $margin: 16px) {
+    margin-left: percentage(1 - (($container-width - $margin * 2) / $container-width));
+    margin-right: percentage(1 - (($container-width - $margin * 2) / $container-width));
+}
+
+@mixin margin-left($container-width: 375px, $margin: 16px) {
+    margin-left: percentage(1 - (($container-width - $margin) / $container-width));
+}
+
+@mixin margin-right($container-width: 375px, $margin: 16px) {
+    margin-right: percentage(1 - (($container-width - $margin) / $container-width));
+}
+
+@mixin line-clamp($line: 2, $max-height: 40px) {
+    @if unitless($max-height) and type-of($max-height) == number {
+        $max-height: $max-height + px;
+    }
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line;
+    max-height: $max-height;
+}
+
+//画像背景（読み込み中・未設定時のプレースホルダー市松模様）
+@mixin image-bg {
+    background: repeating-conic-gradient(from 0deg, #fff 0deg 90deg, #e0e0e0 90deg 180deg) 0 0/20px 20px;
+}
+
+@mixin aspect-center($width: 375, $height: 200) {
+    aspect-ratio: $width / $height;
+    object-fit: cover;
+    object-position: center;
+    display: flex;
+    @include image-bg;
+}
+
+// フォント設定（短縮版）
+// f = font, c = center, n = nowrap, s = serif
+@mixin f($size: 16px, $weight: 350, $line-height: 1.5, $spacing: 0em, $color: null, $family: null) {
+    @if $family { font-family: $family; }
+    font-weight: $weight;
+    font-size: $size;
+    line-height: $line-height;
+    letter-spacing: $spacing;
+    @if $color { color: $color; }
+}
+
+@mixin fc($size: 16px, $weight: 350, $line-height: 1.5, $spacing: 0em, $color: null, $family: null) {
+    @include f($size, $weight, $line-height, $spacing, $color, $family);
+    text-align: center;
+}
+
+@mixin fs($size: 16px, $weight: 400, $line-height: 1.5, $spacing: 0em, $color: null) {
+    @include f($size, $weight, $line-height, $spacing, $color, var(--font-family-serif));
+}
+
+@mixin fcs($size: 16px, $weight: 400, $line-height: 1.5, $spacing: 0em, $color: null) {
+    @include f($size, $weight, $line-height, $spacing, $color, var(--font-family-serif));
+    text-align: center;
+}
+
+@mixin fn($size: 16px, $weight: 350, $line-height: 1.5, $spacing: 0em, $color: null, $family: null) {
+    @include f($size, $weight, $line-height, $spacing, $color, $family);
+    white-space: nowrap;
+}
+
+@mixin fcn($size: 16px, $weight: 350, $line-height: 1.5, $spacing: 0em, $color: null, $family: null) {
+    @include f($size, $weight, $line-height, $spacing, $color, $family);
+    text-align: center;
+    white-space: nowrap;
+}

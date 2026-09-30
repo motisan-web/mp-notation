@@ -1,0 +1,116 @@
+@use "../../global/" as *;
+
+.bl_feature {
+    padding: clamp(56px, 14.9vw, 112px) 0;
+    background: #f3f6f4;
+    color: #1d2b36;
+}
+
+.bl_feature_inner {
+    @include inner-max(375px, 20px, 1080px);
+}
+
+.bl_feature_header {
+    text-align: center;
+}
+
+.bl_feature_header_subTtl {
+    @include f(12px, 700, 1.5, 0.2em, #0f766e);
+}
+
+// 見出し「チームの作業を、ひとつの場所に。」
+.bl_feature_header_ttl {
+    margin-top: 8px;
+    @include f(clamp(24px, 6.4vw, 36px), 700, 1.4, 0.04em);
+}
+
+// テキスト「予定・資料・やりとりを1か所にまとめ、探す時間を減らします。」
+.bl_feature_header_txt {
+    margin-top: 16px;
+    @include f(clamp(14px, 3.7vw, 16px), 400, 1.8);
+}
+
+// 特長カードのリスト
+.bl_feature_cardList {
+    display: grid;
+    gap: 16px;
+    margin-top: clamp(32px, 8.5vw, 56px);
+    @include mq('tab') {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    @include mq('pc') {
+        gap: 24px;
+    }
+}
+
+.bl_feature_card {
+    padding: 28px 24px;
+    border: 1px solid #dce5e0;
+    border-radius: 12px;
+    background: #fff;
+    @include mq('pc') {
+        padding: 36px 32px;
+    }
+}
+
+.bl_feature_card_icon {
+    width: 48px;
+    height: 48px;
+    padding: 12px;
+    border-radius: 50%;
+    background: #e0f0ec;
+    color: #0f766e;
+}
+
+// 見出し（特長の名前）
+.bl_feature_card_ttl {
+    margin-top: 20px;
+    @include f(clamp(17px, 4.5vw, 20px), 700, 1.5);
+}
+
+// テキスト（特長の説明）
+.bl_feature_card_txt {
+    margin-top: 8px;
+    @include f(14px, 400, 1.8);
+}
+
+.bl_feature_card_txt_lv2 {
+    display: inline;
+    font-weight: 700;
+    background: linear-gradient(transparent 60%, #c8ebe2 60%);
+}
+
+.bl_feature_btnWrap {
+    margin-top: clamp(40px, 10.7vw, 64px);
+    text-align: center;
+}
+
+.bl_feature_btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 32px;
+    border-radius: 999px;
+    background: #0f766e;
+    color: #fff;
+    transition: background-color 0.2s;
+    &:hover {
+        background: #0b5d57;
+    }
+    &:focus-visible {
+        outline: 2px solid #0f766e;
+        outline-offset: 3px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+}
+
+.bl_feature_btn_txt {
+    @include f(15px, 700, 1.5, 0.04em);
+}
+
+.bl_feature_btn_icon {
+    width: 16px;
+    height: 16px;
+}

@@ -1,0 +1,18 @@
+/* モバイルファースト */
+$breakpoints: (
+    "tab": "screen and (min-width: 768px)",
+    "pc": "screen and (min-width: 1080px)",
+    "notPc": "screen and (max-width: 1079.5px)",
+    "notTab": "screen and (max-width: 767px), screen and (min-width: 1080px)",
+    "notSp": "screen and (min-width: 768px)",
+    "onlySp": "screen and (max-width: 767px)",
+    "onlyTab": "screen and (min-width: 768px) and (max-width: 1079px)",
+    "onlyPc": "screen and (min-width: 1080px)",
+);
+
+/* メディアクエリミックスイン */
+@mixin mq($breakpoint: tab) {
+    @media #{map-get($breakpoints, $breakpoint)} {
+        @content;
+    }
+}
