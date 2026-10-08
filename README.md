@@ -40,7 +40,7 @@ HTML + SCSS のコーディング記法。クラスの付け方、HTML の構造
 | ファイル | 中身 |
 |---|---|
 | [philosophy.md](philosophy.md) | 記法の思想・目的 |
-| [naming.md](naming.md) | クラス名の組み立て方（プレフィックス、階層、継承、ケース、`_lv`、モディファイア） |
+| [naming.md](naming.md) | クラス名の組み立て方（プレフィックス、階層、継承、ケース、`_lv`、モディファイア、状態 `is_`） |
 | [patterns.md](patterns.md) | パターン名の辞書（inner / body / group / list / card / ttl など） |
 | [abbreviations.md](abbreviations.md) | 省略語と禁止語 |
 | [html-format.md](html-format.md) | インデント・コメント・改行 |

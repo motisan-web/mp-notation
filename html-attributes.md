@@ -105,7 +105,7 @@ php -r "list(\$w,\$h)=getimagesize('path/to/image.jpg'); echo \$w.'x'.\$h;"
 ## 開閉 UI（アコーディオンなど）
 
 - 基本は `details` / `summary`（JS なしで開閉でき、キーボード操作と読み上げにブラウザが対応する）
-- 開閉のアニメーションが必要なときだけ、`button` ＋ `aria-expanded` ＋ `aria-controls` ＋ JS を使う。このとき `aria-expanded` とモディファイア `__open` を必ず同時に切り替える
+- 開閉のアニメーションが必要なときだけ、`button` ＋ `aria-expanded` ＋ `aria-controls` ＋ JS を使う。このとき開閉のボタンの `aria-expanded` と、開く要素の `is_open` を必ず同時に切り替える（→ [naming.md](naming.md)「状態（`is_`）」）
 
 ## ナビゲーション
 
@@ -130,12 +130,13 @@ php -r "list(\$w,\$h)=getimagesize('path/to/image.jpg'); echo \$w.'x'.\$h;"
 
 | 目的 | 付けるクラス | 例 |
 |---|---|---|
-| スタイルを伴う状態（開閉・選択・現在地など） | その要素自身のモディファイア | `bl_faq_item__open` |
+| スタイルを伴う状態（開閉・選択・現在地など） | `is_`（言葉は [naming.md](naming.md)「状態（`is_`）」の表から選ぶ） | `bl_faq_item is_open` |
 | 動きの演出（フェードイン・スライドなど） | `an_` | `an_fadeIn` |
-| スタイルを伴わない、JS の内部状態 | `js_` のモディファイア | `js_lazy` → `js_lazy__loading` → `js_lazy__loaded` |
 
+- JS が付け外しするのは `is_` と `an_` だけ。モディファイア（`__`）は HTML を書くときに決めるもので、JS で付け外ししない
 - 状態と動きを兼ねるとき（開くときにフェードもする）は両方付ける
-- 汎用スクリプト（遅延読み込みなど）はどのモジュールにも付くので、内部状態は `js_` のモディファイアにする
+- `is_` と一緒に、表にある aria 属性も同時に切り替える。見た目と読み上げの状態を食い違わせないため
+- スタイルを伴わない JS の内部の状態（遅延読み込みの途中など）は、クラスにせず data 属性で持つ: `data-lazy="loading"` → `data-lazy="loaded"`。汎用スクリプトはどのモジュールにも付くので、モジュールのクラスに頼らない
 - 自前で用意した汎用スクリプトのクラスも MP記法で命名する。外部ライブラリが付けるクラスは対象外
 
 ### data 属性

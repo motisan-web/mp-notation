@@ -108,13 +108,25 @@ scss/
 
 ```scss
 // 親が開いた状態のときに、子の回答を表示する
-.bl_faq_item__open .bl_faq_item_a { display: block; }
+.bl_faq_item.is_open .bl_faq_item_a { display: block; }
 
 // リンクに hover したときに、中のアイコンを動かす
 .bl_card_link:hover .bl_card_link_icon { transform: translateX(4px); }
 ```
 
 **`js_` にスタイルを当てない**（→ [html-attributes.md](html-attributes.md)「JS との連携」）。
+
+**状態（`is_`）は、モジュールのクラスとつなげて書く。** `is_` だけにスタイルを当てない（→ [naming.md](naming.md)「状態（`is_`）」）。
+
+```scss
+// ○ モジュールのクラスとつなげる
+.bl_nav_link.is_current { font-weight: 700; }
+
+// ✕ is_ だけにスタイルを当てない
+.is_current { font-weight: 700; }
+```
+
+ブラウザが自分で状態を持つ要素は、属性で書く: `.bl_faq_item[open] .bl_faq_item_icon { transform: rotate(180deg); }`
 
 ## span の display
 
@@ -237,6 +249,7 @@ SP ファースト（→ [responsive.md](responsive.md)）。`@include mq()` は
 | `_ttl` で終わるクラス | 見出しのテキスト |
 | `_txt` で終わるクラス | テキストの内容 |
 | `_list` で終わるクラス | 何のリストか |
+| モディファイア | `// 系統: 名前`（例: `// 寄せ: 右寄せ`、`// 色: 反転`）。系統は何が変わるかのまとまりで、同じ系統のモディファイアは同時に付けない。**モディファイアのコメントは必ず書く** |
 
 ```scss
 // 見出し「サービス一覧」
@@ -248,6 +261,11 @@ SP ファースト（→ [responsive.md](responsive.md)）。`@include mq()` は
 .bl_header_nav_list {
     display: flex;
 }
+
+// 寄せ: 右寄せ
+.bl_footer__right .bl_footer_inner {
+    justify-content: flex-end;
+}
 ```
 
-内容が不明・汎用的すぎる場合は書かなくてよい。HTML には書かない（→ [html-format.md](html-format.md)「コメント」）。
+内容が不明・汎用的すぎる場合は書かなくてよい（モディファイアは必ず書く。1つのモディファイアのルールが複数あるときは、最初のルールの前に1回だけ書く）。HTML には書かない（→ [html-format.md](html-format.md)「コメント」）。
