@@ -41,6 +41,7 @@ Module Palette に登録するモジュール（と、このリポジトリの s
 - 動きのあるモジュールは、JS を `script.js` に書く（→ [js.md](js.md)）。JS がつかむ `js_` クラスは HTML にも書いておく
 - HTML と SCSS だけで作れるもの（`details` / `summary` の開閉など）は JS を持たない
 - 組で使うモジュール（部品と複合モジュール）では、部品の JS は部品に置き、複合モジュールには写さない
+- 外部のライブラリを使うときは、読み込む URL の一覧をモジュールの情報に書く（Module Palette では `module.json` の `js_libs`。→ [js.md](js.md)「ファイル」）。ライブラリの本体はモジュールに写さない
 
 ## 画像
 
