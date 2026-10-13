@@ -113,6 +113,8 @@ php -r "list(\$w,\$h)=getimagesize('path/to/image.jpg'); echo \$w.'x'.\$h;"
 
 ## JS との連携
 
+JS のコードそのものの書き方は [js.md](js.md)。
+
 ### JS がつかむ要素
 
 - JS がつかむ要素には `js_` クラスを付ける

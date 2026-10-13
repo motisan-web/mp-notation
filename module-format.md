@@ -9,6 +9,8 @@ Module Palette に登録するモジュール（と、このリポジトリの s
 | `html-structure.html` | モジュールの HTML（必須） |
 | `html-example.html` | 使用例の HTML（任意） |
 | `scss-mp.scss` | モジュールの SCSS（必須）。案件の `scss/module/` に置くファイルと同じもの |
+| `script.js` | モジュールの動き（任意。1つだけ）。書き方は [js.md](js.md) |
+| `variants/` | モディファイアや状態で中身が変わるときの HTML（任意。下の「モディファイアと状態」） |
 | `images/` | モジュール内で使う画像（任意） |
 
 ## HTML
@@ -32,6 +34,13 @@ Module Palette に登録するモジュール（と、このリポジトリの s
 - モジュールが持つモディファイアと状態（`is_`）の一覧は、Module Palette ではモジュールの情報（`module.json`）にも書く。一覧の正本はモジュールの情報で、SCSS と食い違っていれば記法チェックがエラーにする
 - モディファイアは、SCSS のコメント `// 系統: 名前` と同じ系統・名前で書く
 - HTML（`html-structure.html`）は、モディファイアも状態も付けない基本の形で書く。モディファイアや状態を付けた見た目は、Module Palette が付け替えて見せる
+- モディファイアや状態で中身まで変わるもの（アイコンだけのボタンに「×」を入れる、など）だけ、その HTML を `variants/` に置く。ファイル名は、モディファイアは `クラス.html`（`variants/el_btn__icon.html`）、状態は `対象のクラス.状態.html`（`variants/bl_faq_item.is_open.html`）
+
+## JS
+
+- 動きのあるモジュールは、JS を `script.js` に書く（→ [js.md](js.md)）。JS がつかむ `js_` クラスは HTML にも書いておく
+- HTML と SCSS だけで作れるもの（`details` / `summary` の開閉など）は JS を持たない
+- 組で使うモジュール（部品と複合モジュール）では、部品の JS は部品に置き、複合モジュールには写さない
 
 ## 画像
 

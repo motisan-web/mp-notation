@@ -47,6 +47,7 @@ HTML + SCSS のコーディング記法。クラスの付け方、HTML の構造
 | [html-attributes.md](html-attributes.md) | タグの選び方・属性・アクセシビリティ・JS との連携 |
 | [responsive.md](responsive.md) | ブレークポイント・表示切り替え・流体値 |
 | [scss.md](scss.md) | SCSS のファイル構成・書き方 |
+| [js.md](js.md) | JS の書き方（1つの機能を1つの即時関数・何個あっても動く・見た目は is_ と an_ で変える・ほかから呼ばれる機能の出し方） |
 | [module-format.md](module-format.md) | モジュールとして切り出すときの形式 |
 | [checklist.md](checklist.md) | 検品の基準 |
 | [open-questions.md](open-questions.md) | 未決の論点と次の版の予定 |
