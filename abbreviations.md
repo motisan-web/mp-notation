@@ -28,6 +28,7 @@
 | notification | `notif` | 例外的に5文字 |
 | callout | `callout` | `call` にしないのは tel（電話）と混同するため |
 | tip / toast / quote | そのまま | |
+| dummy | そのまま | 仮の中身（[module-format.md](module-format.md)「仮の中身」）だけに使う |
 | link / list / item / menu | そのまま | |
 | dropdown / modal / dialog / popup / tooltip | そのまま | |
 | accordion / tab / panel / card / badge / alert | そのまま | |
